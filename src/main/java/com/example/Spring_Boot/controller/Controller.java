@@ -61,6 +61,14 @@ public class Controller {
         return ResponseEntity.ok(updatedBook);
     }
 
+    @GetMapping("/books/{id}")
+public ResponseEntity<Book> getBb(@PathVariable Long id) {
+    Optional<Book> book = bookService.getBookById(id);
+    return book.map(ResponseEntity::ok)
+               .orElseGet(() -> ResponseEntity.notFound().build());
+}
+
+
     // Delete a book by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
